@@ -28,17 +28,17 @@ export default function Products() {
 
   const Loading = () => (
     <>
-      <div className="col-md-3 col-sm-6 mb-4">
-        <Skeleton height={350} />
+      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+        <Skeleton height={200} />
       </div>
-      <div className="col-md-3 col-sm-6 mb-4">
-        <Skeleton height={350} />
+      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+        <Skeleton height={200} />
       </div>
-      <div className="col-md-3 col-sm-6 mb-4">
-        <Skeleton height={350} />
+      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+        <Skeleton height={200} />
       </div>
-      <div className="col-md-3 col-sm-6 mb-4">
-        <Skeleton height={350} />
+      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+        <Skeleton height={200} />
       </div>
     </>
   );
@@ -57,11 +57,11 @@ export default function Products() {
               src={product.image}
               className="card-img-top"
               alt={product.title}
-              height="250px"
+              height="80%"
             />
             <div className="card-body">
               <h5 className="card-title mb-0">
-                {product.title.substring(0, 12)}...
+                {product.title.substring(0, 20)}...
               </h5>
               <p className="card-text lead fw-bold">${product.price}</p>
               <NavLink
