@@ -1,16 +1,16 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../redux/cartSlice';
-import { useParams, NavLink } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Loader from './Loader';
-import useFetch from '../api/productsAPI'; 
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
+import { useParams, NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loader from "./Loader";
+import useFetch from "../api/productsAPI";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  // Fetch product data using useFetch hook
+  // Fetch product data
   const { data, error, loading } = useFetch(`/products/${id}`);
 
   // Fetch cart data from Redux store
@@ -44,7 +44,7 @@ export default function ProductDetail() {
           <h4 className="text-uppercase text-black-50">{data.category}</h4>
           <h1 className="display-5">{data.title}</h1>
           <p className="lead fw-bolder">
-            Rating {data?.rating && data.rating.rate}{' '}
+            Rating {data?.rating && data.rating.rate}{" "}
             <i className="fa fa-star"></i>
           </p>
           <h3 className="display-6 fw-bold my-4">$ {data?.price}</h3>

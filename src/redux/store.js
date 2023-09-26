@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import CartReducer from './cartSlice';
 import ProductReducer from './productSlice';
 import FilterProductReducer from './productFilterSlice';
+import { fetchProducts } from './productSlice';
 
 
 const store = configureStore({
@@ -13,6 +14,6 @@ const store = configureStore({
   
 });
 
-//store.dispatch(fetchUsers());
+store.dispatch(fetchProducts());
 
 export default store;

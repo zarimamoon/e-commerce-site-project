@@ -18,16 +18,16 @@ const ProductCard = ({ product }) => {
     maxWidth: "150px",
     margin: "0 auto",
     padding: "10px 0",
-    transition: "transform 0.3s", // Add a transform transition
-    transform: isHovered ? "scale(1.05)" : "scale(1)", // Apply zoom effect
+    transition: "transform 0.3s", 
+    transform: isHovered ? "scale(1.05)" : "scale(1)", 
   };
 
   // Styles for the product card
   const productCardStyle = {
     position: "relative",
     minHeight: "300px",
-    transition: "transform 0.3s, box-shadow 0.3s", // Add transitions
-    boxShadow: isHovered ? "3px 3px 10px #d3d3d3" : "1px 1px 10px #d3d3d3", // Apply box-shadow effect
+    transition: "transform 0.3s, box-shadow 0.3s", 
+    boxShadow: isHovered ? "3px 3px 10px #d3d3d3" : "1px 1px 10px #d3d3d3", 
     border: "none",
   };
 
@@ -39,8 +39,8 @@ const ProductCard = ({ product }) => {
     position: "absolute",
     bottom: "20px",
     right: "85px",
-    transition: "transform 0.3s", // Add a transform transition
-    transform: isHovered ? "scale(1.1)" : "scale(1)", // Apply zoom effect
+    transition: "transform 0.3s",
+    transform: isHovered ? "scale(1.1)" : "scale(1)",
   };
 
   // Add product to cart handler

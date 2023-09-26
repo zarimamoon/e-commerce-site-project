@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login({ token, setToken }) {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const loginHandler = () => {
     setLoading(true);
 
     axios({
-      url: 'https://fakestoreapi.com/auth/login',
-      method: 'POST',
+      url: "https://fakestoreapi.com/auth/login",
+      method: "POST",
       data: {
         username: username,
         password: password,
@@ -24,11 +24,11 @@ function Login({ token, setToken }) {
         setLoading(false);
         setToken(res.data.token);
         // Redirect to the home page on successful login
-        navigate('/'); 
+        navigate("/");
       })
       .catch((err) => {
         setLoading(false);
-        setError('Invalid credentials. Please try again.');
+        setError("Invalid credentials. Please try again.");
         console.log(err);
       });
   };
@@ -37,7 +37,10 @@ function Login({ token, setToken }) {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card" style={{ backgroundColor: 'rgba(800, 150, 0, 0.4)' }}>
+          <div
+            className="card"
+            style={{ backgroundColor: "rgba(800, 150, 0, 0.4)" }}
+          >
             <div className="card-body">
               <h2 className="card-title text-center">Log in</h2>
               {error && (
@@ -77,12 +80,12 @@ function Login({ token, setToken }) {
                     className="btn btn-dark"
                     disabled={loading}
                   >
-                    {loading ? 'Logging in...' : 'Log in'}
+                    {loading ? "Logging in..." : "Log in"}
                   </button>
                 </div>
               </form>
               <div className="mt-3 text-center">
-                Don't have an account?{' '}
+                Don't have an account?{" "}
                 <Link to="/register" className="btn btn-link">
                   Register
                 </Link>

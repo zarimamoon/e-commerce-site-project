@@ -26,7 +26,7 @@ const productSlice = createSlice({
   },
 });
 
-//fetching product using build in thunk on toolkit
+//fetching products using built-in thunk in toolkit
 
 export const fetchProducts = createAsyncThunk("fetch/products", async () => {
   const data = await axios.get(`${base_url}products`).then((res) => res.data);

@@ -34,7 +34,7 @@ export default CheckoutSuccess;
 
 const Container = styled.div`
   min-height: 100vh;
-  max-width: 1000px;
+  max-width: 100%;
   width: 100%;
   margin: auto;
   display: flex;

@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Navbar as BootstrapNavbar, Nav, Container } from 'react-bootstrap';
+import { Navbar as BootstrapNavbar, Nav, Container } from "react-bootstrap";
 
-
-const Navbar = ({token, setToken}) => {
+const Navbar = ({ token, setToken }) => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
- 
+
   // Function to handle logout
   const logoutHandler = () => {
     setToken("");
@@ -29,27 +28,30 @@ const Navbar = ({token, setToken}) => {
               <i className="fa fa-shopping-bag" aria-hidden="true"></i> Products
             </Nav.Link>
           </Nav>
-          
-          <div className="buttons d-flex">
-            {/* Conditionally render Logout or Login button */}
+
+          <div className="d-flex">
             {token ? (
-              <button onClick={() => logoutHandler()} className="btn btn-outline-dark">
+              <button
+                onClick={() => logoutHandler()}
+                className="btn btn-outline-dark me-2"
+              >
                 <i className="fa fa-sign-out me-1"></i> Logout
               </button>
             ) : (
               <>
-                <Link to="/login" className="btn btn-outline-dark">
+                <Link to="/login" className="btn btn-outline-dark me-2">
                   <i className="fa fa-sign-in me-1"></i> Login
                 </Link>
-                <Link to="/register" className="btn btn-outline-dark ms-2">
+                <Link to="/register" className="btn btn-outline-dark me-2">
                   <i className="fa fa-user-plus me-1"></i> Register
                 </Link>
               </>
             )}
-            <Link to="/cart" className="btn btn-outline-dark ms-2">
-              <i className="fa fa-shopping-cart me-1"></i> {cartTotalQuantity > 0 && cartTotalQuantity}
-            </Link>
           </div>
+          <Link to="/cart" className="btn btn-outline-dark">
+            <i className="fa fa-shopping-cart me-1"></i>{" "}
+            {cartTotalQuantity > 0 && cartTotalQuantity}
+          </Link>
         </BootstrapNavbar.Collapse>
       </Container>
     </BootstrapNavbar>

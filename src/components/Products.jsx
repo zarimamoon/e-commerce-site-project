@@ -21,7 +21,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   // Define the categories array
   const categories = [

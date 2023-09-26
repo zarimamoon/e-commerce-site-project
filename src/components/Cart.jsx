@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   removeFromCart,
   removeAll,
   reduceProduct,
   getTotals,
   addToCart,
-} from '../redux/cartSlice';
+} from "../redux/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
@@ -81,13 +81,18 @@ export default function Cart() {
           ))}
           <hr />
           <div className="mb-5 d-md-flex justify-content-between align-items-center">
-            <button className="btn btn-danger mb-3 mb-md-0" onClick={handleClearCart}>
+            <button
+              className="btn btn-danger mb-3 mb-md-0"
+              onClick={handleClearCart}
+            >
               Remove All items
             </button>
             <div className="cart-checkout text-center">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">${cart.cartTotalAmount.toFixed(2)}</span>
+                <span className="amount">
+                  ${cart.cartTotalAmount.toFixed(2)}
+                </span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
               <button
