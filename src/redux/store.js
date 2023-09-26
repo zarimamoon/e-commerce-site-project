@@ -1,6 +1,18 @@
-import { createStore } from "redux";
-import rootReducers from "./reducer";
+import { configureStore } from '@reduxjs/toolkit';
+import CartReducer from './cartSlice';
+import ProductReducer from './productSlice';
+import FilterProductReducer from './productFilterSlice';
 
-const store = createStore(rootReducers);
+
+const store = configureStore({
+  reducer: {
+    cart: CartReducer,
+    products: ProductReducer,
+    productFilter: FilterProductReducer,
+  },
+  
+});
+
+//store.dispatch(fetchUsers());
 
 export default store;

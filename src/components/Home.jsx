@@ -7,7 +7,7 @@ export default function Home() {
       <div className="card bg-dark text-white border-0">
         <img
           src="/assets/bg.jpg"
-          className="card-img img-fluid"  // Added 'img-fluid' class for responsiveness
+          className="card-img img-fluid" 
           alt="Background"
         />
         <div className="card-img-overlay d-flex flex-column justify-content-center">

@@ -1,131 +1,132 @@
-import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
+import React, { useState, useEffect } from "react";
+import { Container, Button, InputGroup, FormControl, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { STATUS } from "../api/status";
+import { fetchProducts } from "../redux/productSlice";
+import { setSearchProduct, setCategory } from "../redux/productFilterSlice";
+import Loader from "./Loader";
+import ProductCard from "./ProductCard";
+import { BiSearch } from "react-icons/bi";
+import '../App.scss';
 
-export default function Products() {
-  const [data, setData] = useState([]);
-  const [filter, setFilter] = useState(data);
-  const [loading, setLoading] = useState(false);
-  const componentMounted = useRef(true);
+const Products = () => {
+  const [showSearch, setShowSearch] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { products, status } = useSelector((state) => state.products);
+  const { searchedProduct, category } = useSelector(
+    (state) => state.productFilter
+  );
 
   useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (componentMounted.current) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
-        setLoading(false);
-      }
-    };
-
-    getProducts();
-
-    return () => {
-      componentMounted.current = false;
-    };
+    dispatch(fetchProducts());
   }, []);
 
-  const Loading = () => (
-    <>
-      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-        <Skeleton height={200} />
-      </div>
-      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-        <Skeleton height={200} />
-      </div>
-      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-        <Skeleton height={200} />
-      </div>
-      <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-        <Skeleton height={200} />
-      </div>
-    </>
-  );
+  // Define the categories array
+  const categories = [
+    {
+      value: "all",
+      name: "All",
+    },
+    {
+      value: "jewelery",
+      name: "Jewelry",
+    },
+    {
+      value: "electronics",
+      name: "Electronics",
+    },
+    {
+      value: "men's clothing",
+      name: "Men's Clothing",
+    },
+    {
+      value: "women's clothing",
+      name: "Women's Clothing",
+    },
+  ];
 
-  const filterProduct = (cat) => {
-    const updatedList = data.filter((x) => x.category === cat);
-    setFilter(updatedList);
-  };
+  let productsData;
 
-  const ShowProducts = () => (
-    <>
-      {filter.map((product) => (
-        <div className="col-md-3 col-sm-6 mb-4" key={product.id}>
-          <div className="card h-100 text-center p-4">
-            <img
-              src={product.image}
-              className="card-img-top"
-              alt={product.title}
-              height="80%"
-            />
-            <div className="card-body">
-              <h5 className="card-title mb-0">
-                {product.title.substring(0, 20)}...
-              </h5>
-              <p className="card-text lead fw-bold">${product.price}</p>
-              <NavLink
-                to={`/products/${product.id}`}
-                className="btn btn-outline-dark"
-              >
-                Buy Now
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
+  if (searchedProduct) {
+    productsData = products?.filter((item) =>
+      item.title.toLowerCase().includes(searchedProduct.toLowerCase())
+    );
+  } else if (category.length > 0) {
+    if (category.toLowerCase() === "all") {
+      productsData = products;
+    } else {
+      productsData = products?.filter((item) =>
+        item.category.toLowerCase().includes(category.toLowerCase())
+      );
+    }
+  } else {
+    productsData = products;
+  }
+
+  if (status === STATUS.LOADING) {
+    return <Loader />;
+  }
+
+  if (status !== STATUS.LOADING && status === STATUS.ERROR) {
+    return <h2>{status}</h2>;
+  }
 
   return (
-    <div>
-      <div className="container my-5 py-5">
-        <div className="row">
-          <div className="col-12 mb-5">
-            <h1 className="display-6 fw-bolder text-center">Latest Products</h1>
-            <hr />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 mb-4">
-            <div className="buttons d-flex justify-content-center">
-              <button
-                className="btn btn-outline-dark me-2"
-                onClick={() => setFilter(data)}
-              >
-                All
-              </button>
-              <button
-                className="btn btn-outline-dark me-2"
-                onClick={() => filterProduct("men's clothing")}
-              >
-                Men's Clothing
-              </button>
-              <button
-                className="btn btn-outline-dark me-2"
-                onClick={() => filterProduct("women's clothing")}
-              >
-                Women's Clothing
-              </button>
-              <button
-                className="btn btn-outline-dark me-2"
-                onClick={() => filterProduct("jewelery")}
-              >
-                Jewelry
-              </button>
-              <button
-                className="btn btn-outline-dark me-2"
-                onClick={() => filterProduct("electronics")}
-              >
-                Electronics
-              </button>
+    <div id="product-list">
+      <Container>
+        <Row className="mb-3">
+          <Col md={12} className="text-center">
+            <h3>Shop by Collection</h3>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col md={10} xs={10} className="text-center">
+            {showSearch && (
+              <InputGroup>
+                <FormControl
+                  type="text"
+                  value={searchedProduct}
+                  onChange={(e) => dispatch(setSearchProduct(e.target.value))}
+                  placeholder="Search Product"
+                />
+                <Button
+                  variant="dark"
+                  onClick={() => setShowSearch(!showSearch)}
+                >
+                  <BiSearch size={25} />
+                </Button>
+              </InputGroup>
+            )}
+          </Col>
+          <Col md={10} xs={12} className="text-center mt-1 mt-md-5">
+            <div className="justify-content-center justify-content-md-between">
+              {categories.map((option) => (
+                <Button
+                key={option.value}
+                  variant="outline-dark"
+                  className="me-2 mb-2"
+                  onClick={() => dispatch(setCategory(option.value))}
+                >
+                  {option.name}
+                </Button>
+              ))}
             </div>
-          </div>
-        </div>
-        <div className="row">
-          {loading ? <Loading /> : <ShowProducts />}
-        </div>
-      </div>
+          </Col>
+        </Row>
+        <Row>
+          {productsData?.map((product) => (
+            <Col key={product?.id} md={4} sm={12} xs={14} className="mb-4">
+              <div className="product-card-container">
+                <ProductCard product={product} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
-}
+};
+
+export default Products;
