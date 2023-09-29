@@ -81,8 +81,8 @@ const Products = () => {
             <h3>Shop by Collection</h3>
           </Col>
         </Row>
-        <Row className="mb-3">
-          <Col md={10} xs={10} className="text-center">
+        <Row className="mb-5">
+          <Col md={12} xs={14} className="text-center">
             {showSearch && (
               <InputGroup>
                 <FormControl
@@ -95,12 +95,12 @@ const Products = () => {
                   variant="dark"
                   onClick={() => setShowSearch(!showSearch)}
                 >
-                  <BiSearch size={25} />
+                  <BiSearch size={30} />
                 </Button>
               </InputGroup>
             )}
           </Col>
-          <Col md={10} xs={12} className="text-center mt-1 mt-md-5">
+          <Col md={12} xs={14} className="text-center mt-1 mt-md-5">
             <div className="justify-content-center justify-content-md-between">
               {categories.map((option) => (
                 <Button

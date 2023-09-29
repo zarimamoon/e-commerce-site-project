@@ -24,7 +24,7 @@ function Login({ token, setToken }) {
         setLoading(false);
         setToken(res.data.token);
         // Redirect to the home page on successful login
-        navigate("/");
+        navigate("/checkout");
       })
       .catch((err) => {
         setLoading(false);
